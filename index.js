@@ -51,6 +51,7 @@ async function startMigration() {
     });
 
     const data = await res.text();
+    console.log(data);
 
     if (res.ok) {
       showSuccessScreen(JSON.parse(data).youtubePlaylistUrl);
