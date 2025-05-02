@@ -1,7 +1,5 @@
 let tracks = [];
-let youtubeAuthToken = null; // Token de autenticação do YouTube
 
-// Animação de distorção com movimento do mouse (opcional)
 const skewItemContainer = document.querySelector(".skew");
 const skewItem = document.querySelector(".skew__item").getBoundingClientRect();
 const imageCenterX = skewItem.left + skewItem.width / 2;
@@ -16,7 +14,11 @@ skewItemContainer.addEventListener("mousemove", function(e) {
 });
 
 async function loginWithYouTube() {
-    const authWindow = window.open('/auth/youtube', 'YouTube Login', 'width=500,height=600');
+    const authWindow = window.open(
+      'https://playlist-migrator-backend.onrender.com/auth/youtube', 
+      'YouTube Login', 
+      'width=500,height=600'
+    );
     const interval = setInterval(() => {
         if (authWindow.closed) {
             clearInterval(interval);
@@ -46,7 +48,7 @@ async function startMigration() {
     loadingEl.style.display = "block";
 
     try {
-        const res = await fetch('/migrate/spotify-to-youtube', {
+        const res = await fetch('https://playlist-migrator-backend.onrender.com/migrate/spotify-to-youtube', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: body
@@ -99,14 +101,3 @@ async function startMigration() {
       </div>
     `;
   }
-  
-
-window.addEventListener('message', (event) => {
-    if (event.data.type === 'youtubeAuthToken') {
-        const youtubeAuthToken = event.data.token;
-        console.log('Received YouTube Auth Token:', youtubeAuthToken);
-
-        // Continue with your migration flow, using the token
-        startMigration(youtubeAuthToken);
-    }
-});
