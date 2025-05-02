@@ -52,11 +52,10 @@ async function startMigration() {
 
     const data = await res.text();
 
-    loadingEl.style.display = "none";
     if (res.ok) {
       showSuccessScreen(JSON.parse(data).youtubePlaylistUrl);
-    } else {
-      showErrorScreen(JSON.parse(data));
+    } else if (JSON.parse(data).error) {
+      showErrorScreen(JSON.parse(data).errors[0]);
       throw new Error(JSON.parse(data).error || "Migration failed");
     }
 }
