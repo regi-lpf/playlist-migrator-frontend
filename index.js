@@ -51,12 +51,11 @@ async function startMigration() {
     });
 
     const data = await res.text();
-    console.log(data);
 
-    if (res.ok) {
+    if (JSON.parse(data)) {
       showSuccessScreen(JSON.parse(data).youtubePlaylistUrl);
     } else if (JSON.parse(data).error) {
-      showErrorScreen(JSON.parse(data).errors[0]);
+      showErrorScreen(JSON.parse(data).error);
       throw new Error(JSON.parse(data).error || "Migration failed");
     }
 }
