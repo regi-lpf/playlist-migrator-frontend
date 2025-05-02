@@ -33,8 +33,6 @@ async function startMigration() {
         throw new Error('Spotify Playlist URL needed for this operation');
     }
     const youtubeUrl = document.getElementById('youtubeUrl').value;
-    const loadingEl = document.getElementById('loading');
-    const resultEl = document.getElementById('result');
     let body;
 
     if(!youtubeUrl){
@@ -43,9 +41,8 @@ async function startMigration() {
     else{
         body = JSON.stringify({ spotifyUrl, youtubeUrl })
     }
-
-    resultEl.innerHTML = "";
-    loadingEl.style.display = "block";
+    
+    showLoadingScreen('Migrating, please wait...')
 
     const res = await fetch('https://playlist-migrator-backend.onrender.com/migrate/spotify-to-youtube', {
         method: 'POST',
@@ -77,6 +74,7 @@ async function startMigration() {
         <h2>✅ Migration Complete!</h2>
         <p>Your new playlist is available at:</p>
         <a href="${playlistUrl}" target="_blank">${playlistUrl}</a>
+        <button style="margin-top: 4dvh; margin-bottom: 1dvh;" onclick="location.reload()">Migrate Another Playlist</button>
       </div>
     `;
   }
@@ -86,6 +84,7 @@ async function startMigration() {
       <div class="error">
         <h2>❌ Couldn't complete migration</h2>
         <p>${error.message || "An unknown error ocurred."}</p>
+        <button style="margin-top: 4dvh; margin-bottom: 1dvh;" onclick="location.reload()">Migrate Another Playlist</button>
       </div>
     `;
   }
