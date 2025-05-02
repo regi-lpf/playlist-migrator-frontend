@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Auth Complete</title>
+</head>
+<body>
+    <script>
+        // This assumes the server injected the token into the URL as a query param
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get("token");
+
+        if (token) {
+            window.opener.postMessage({ type: 'youtube-auth-success', token }, window.origin);
+        } else {
+            window.opener.postMessage({ type: 'youtube-auth-failure' }, window.origin);
+        }
+
+        window.close();
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Playlist to Table</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="skew">
+    <div class="skew__item" id="app" style="
+         background: #108700; 
+         border-radius: 4dvw; 
+         padding: 40px;
+         outline: 8px ridge rgb(217, 255, 0);
+         color: rgb(217, 255, 0);
+         border-radius: 2rem;
+         ">
+        <h1 class="typewriter">Spotify Playlist Migration Tool</h1>
+
+        <input type="text" id="spotifyUrl" placeholder="Spotify playlist URL" />
+        <input type="text" id="youtubeUrl" placeholder="YouTube playlist URL (optional)" />
+        <br>
+        <button style="margin-top: 4dvh; margin-bottom: 1dvh;" onclick="loginWithYouTube()">Migrate Playlist</button>
+      
+        <div id="loading" style="display: none; margin: 20px 0; font-weight: bold;">Migrating... Please wait.</div>
+        <div id="result" style="margin-top: 20px;"></div>       
+    <script src="./index.js"></script>
+    </div>
+</body>
+</html>
