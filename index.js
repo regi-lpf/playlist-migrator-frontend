@@ -8,7 +8,7 @@ skewItemContainer.addEventListener("mousemove", function(e) {
   const clientX = e.clientX;
   const clientY = e.clientY;
   const xCalc = (clientX - imageCenterX) * 0.00000075;
-  const yCalc = (clientY - imageCenterY) * 0.000001;
+  const yCalc = (clientY - imageCenterY) * 0.0000015;
   skewItemContainer.style.setProperty("--x-translate", `${xCalc}`);
   skewItemContainer.style.setProperty("--y-translate", `${yCalc}`);
 });
