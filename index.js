@@ -47,32 +47,20 @@ async function startMigration() {
     resultEl.innerHTML = "";
     loadingEl.style.display = "block";
 
-    try {
-        const res = await fetch('https://playlist-migrator-backend.onrender.com/migrate/spotify-to-youtube', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: body
-        });
+    const res = await fetch('https://playlist-migrator-backend.onrender.com/migrate/spotify-to-youtube', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: body
+    });
 
-        const data = await res.text();
+    const data = await res.text();
 
-        if (!res.ok){
-            showErrorScreen(data);
-            throw new Error(data || "Migration failed");
-        }
-
-        loadingEl.style.display = "none";
-        if (res.ok) {
-            resultEl.innerHTML = `
-                <p style="color: #caff00; font-weight: bold;">✅ Migration complete!</p>
-                <a href="${JSON.parse(data).youtubePlaylistUrl}" target="_blank">🎵 Open YouTube Playlist</a>
-            `;
-        } else {
-            throw new Error(data.error || "Migration failed");
-        }
-    } catch (err) {
-        loadingEl.style.display = "none";
-        resultEl.innerHTML = `<p style="color: red;">❌ ${err.message}</p>`;
+    loadingEl.style.display = "none";
+    if (res.ok) {
+      showSuccessScreen(JSON.parse(data).youtubePlaylistUrl);
+    } else {
+      showErrorScreen(JSON.parse(data));
+      throw new Error(JSON.parse(data).error || "Migration failed");
     }
 }
 
@@ -86,8 +74,8 @@ async function startMigration() {
   function showSuccessScreen(playlistUrl) {
     document.getElementById('app').innerHTML = `
       <div class="success">
-        <h2>✅ Migração concluída!</h2>
-        <p>Sua nova playlist está disponível em:</p>
+        <h2>✅ Migration Complete!</h2>
+        <p>Your new playlist is available at:</p>
         <a href="${playlistUrl}" target="_blank">${playlistUrl}</a>
       </div>
     `;
@@ -96,8 +84,8 @@ async function startMigration() {
   function showErrorScreen(error) {
     document.getElementById('app').innerHTML = `
       <div class="error">
-        <h2>❌ Erro durante a migração</h2>
-        <p>${error.message || "Ocorreu um erro desconhecido."}</p>
+        <h2>❌ Couldn't complete migration</h2>
+        <p>${error.message || "An unknown error ocurred."}</p>
       </div>
     `;
   }
