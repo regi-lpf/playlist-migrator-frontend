@@ -195,4 +195,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  width: 100%;
+  max-width: 30dvw;
+  gap: 1dvh;
 }
