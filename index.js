@@ -63,13 +63,13 @@ async function startMigration() {
   
   function showLoadingScreen(message) {
     document.getElementById('app').innerHTML = `
-      <div class="loading" style="display: flex; justify-content: center; align-content: center;>${message}</div>
+      <div class="loading">${message}</div>
     `;
   }
   
   function showSuccessScreen(playlistUrl) {
     document.getElementById('app').innerHTML = `
-      <div class="success" style="display: flex; justify-content: center; align-content: center;>
+      <div class="success">
         <h2>✅ Migration Complete!</h2>
         <p>Your new playlist is available at:</p>
         <a href="${playlistUrl}" target="_blank">${playlistUrl}</a>
@@ -80,7 +80,7 @@ async function startMigration() {
   
   function showErrorScreen(error) {
     document.getElementById('app').innerHTML = `
-      <div class="error" style="display: flex; justify-content: center; align-content: center;>
+      <div class="error">
         <h2>❌ Couldn't complete migration</h2>
         <p>${error || "An unknown error ocurred."}</p>
         <button style="margin-top: 4dvh; margin-bottom: 1dvh;" onclick="location.reload()">Migrate Another Playlist</button>
