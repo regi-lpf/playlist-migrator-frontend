@@ -81,6 +81,7 @@
       }
     }
     &__item {
+      gap: 1dvh;
       width: 60vw;
       max-width: 500px;
       box-shadow: -5px -5px 100px -40px rgb(179, 255, 0);
