@@ -20,17 +20,16 @@ async function loginWithYouTube() {
     'width=500,height=600'
   );
 
-  const interval = setInterval(async () => {
-    if (authWindow.closed) {
-      clearInterval(interval);
-      try {
-        await startMigration();
-      } catch (err) {
-        showErrorScreen(err.message);
-      }
-    }
-  }, 500);
+  // Instead of polling, just show "Continue" message
+  showLoadingScreen('Login window opened. After logging in with YouTube, click the button below.');
+
+  // Add a continue button
+  const continueBtn = document.createElement("button");
+  continueBtn.innerText = "Continue to Migration";
+  continueBtn.onclick = startMigration();
+  document.querySelector(".loading").appendChild(continueBtn);
 }
+
 
 async function startMigration() {
   const spotifyUrl = document.getElementById('spotifyUrl').value;
@@ -46,7 +45,8 @@ async function startMigration() {
     const res = await fetch('https://playlist-migrator-backend.onrender.com/migrate/spotify-to-youtube', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body
+      body,
+      credentials: 'include'
     });
 
     const data = await res.json();
