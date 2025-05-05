@@ -45,9 +45,9 @@ async function startMigration() {
   try {
     const res = await fetch('https://playlist-migrator-backend.onrender.com/migrate/spotify-to-youtube', {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body,
-      credentials: 'include'
+      body: body
     });
 
     const data = await res.json();
